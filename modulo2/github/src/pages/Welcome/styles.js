@@ -1,7 +1,7 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 
-import { bold } from 'ansi-colors';
-import { colors, metrics } from '../../styles';
+import {bold} from 'ansi-colors';
+import {colors, metrics} from '../../styles';
 
 const styles = StyleSheet.create({
   container: {

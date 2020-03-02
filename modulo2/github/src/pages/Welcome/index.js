@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 import {
   View,
@@ -20,35 +20,35 @@ export default class Welcome extends Component {
     error: false,
   };
 
-  checkUsename = async (username) => {
-    const user = await api.get(`/users/${username}`);
-    console.log(user);
-    return user;
+  checkUsename = async username => {
+    const response = await api.get(`/users/${username}`);
+    console.log(response.data);
+    return response.data;
   };
 
-  saveUser = async (username) => {
+  saveUser = async username => {
     await AsyncStorage.setItem('@Githuber:username', username);
   };
 
   signIn = async () => {
-    const { username } = this.state;
-    const { navigation } = this.props;
+    const {username} = this.state;
+    const {navigation} = this.props;
 
-    this.setState({ loading: true });
+    this.setState({loading: true});
     try {
       console.log(username);
-      await this.checkUsename(username);
+      const userGit = await this.checkUsename(username);
       await this.saveUser(username);
-      navigation.navigate('Repositories');
+      navigation.navigate('Repositories', {username, userGit});
     } catch (error) {
-      this.setState({ loading: false, error: true });
+      this.setState({loading: false, error: true});
       console.log(error);
       console.log('Usuario não existe');
     }
   };
 
   render() {
-    const { username, loading, error } = this.state;
+    const {username, loading, error} = this.state;
     return (
       <View style={styles.container}>
         <StatusBar barStyle="light-content" />
@@ -63,7 +63,7 @@ export default class Welcome extends Component {
             placeholder="Usuario"
             underlineColorAndroid="transparent"
             value={username}
-            onChangeText={text => this.setState({ username: text })}
+            onChangeText={text => this.setState({username: text})}
           />
 
           <TouchableOpacity style={styles.button} onPress={this.signIn}>

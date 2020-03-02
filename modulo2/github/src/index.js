@@ -6,9 +6,14 @@
  * @flow
  */
 
-import React, { Fragment, Component } from 'react';
+import React, {Fragment, Component} from 'react';
 import {
-  SafeAreaView, StyleSheet, ScrollView, View, Text, StatusBar,
+  SafeAreaView,
+  StyleSheet,
+  ScrollView,
+  View,
+  Text,
+  StatusBar,
 } from 'react-native';
 
 import {
@@ -54,10 +59,11 @@ export default class App extends Component {
   }
 
   render() {
-    const { userLoggend, checkUser } = this.state;
+    const {userLoggend, checkUser} = this.state;
 
     if (!checkUser) {
-      return null;
+      const Routes = createSwitchNavigator(checkUser);
+      return <Routes />;
     }
 
     const Routes = createSwitchNavigator(userLoggend);
